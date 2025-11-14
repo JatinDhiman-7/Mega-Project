@@ -1,0 +1,14 @@
+.container2 {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.About-footer {
+  width: 30%;
+}
+.Links-footer {
+  width: 30%;
+}
+.Address-footer {
+  width: 30%;
+}
