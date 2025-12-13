@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 function Footer() {
   return (
     <footer className="bg-dark text-white py-4 mt-5">
-      <div className="container text-center">
+      <div className="container text-center text-align: left">
         <div className="container2">
           <div className="About-footer">
             <h4>About Us</h4>

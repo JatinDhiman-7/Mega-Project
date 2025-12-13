@@ -7,7 +7,6 @@ function Cart() {
 
   return (
     <>
-      {" "}
       <div className="food-grid">
         <h2>Your Cart</h2>
         <Card className="food-card">
@@ -37,7 +36,7 @@ function Cart() {
 
                   <span style={{ margin: "0 10px" }}>{item.qty}</span>
 
-                  <button onClick={() => updateQty(item.id, item.qty +1)}>
+                  <button onClick={() => updateQty(item.id, item.qty + 1)}>
                     +
                   </button>
 

@@ -18,10 +18,14 @@ function ProductCard() {
     <>
       <CategoryFilter setFilter={setFilter} />
 
-      <div className="food-grid">
-        {filteredItems.map((food) => (
-          <FoodCard key={food.id} food={food} />
-        ))}
+      <div className="container">
+        <div className="row">
+          {filteredItems.map((food) => (
+            <div className="col-12 col-sm-6 col-md-4 mb-4">
+            <FoodCard key={food.id} food={food} />
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );
