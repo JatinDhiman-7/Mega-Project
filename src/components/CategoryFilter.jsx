@@ -1,8 +1,32 @@
 import { Link } from "react-router-dom";
-function Category() {
+import { Button } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import FoodCard from "./FoodCard";
+
+function CategoryFilter({setFilter}) {
+  
   return (
-    <div>
-      <Link>Alll</Link>
+    <div className="CategorCss">
+      <Link>
+        <Button variant="danger" onClick={()=>setFilter('all')}>All Catogory
+        </Button>
+      </Link>
+      <Link>
+        <Button variant="danger" onClick={()=>setFilter("Beverages")}>Beverages</Button>
+      </Link>
+      <Link>
+        <Button variant="danger"  onClick={()=>setFilter("Burgers")}>Burger</Button>
+      </Link>
+      <Link>
+        <Button variant="danger"  onClick={()=>setFilter("Desserts")}>Desserts</Button>
+      </Link>
+      <Link>
+        <Button variant="danger"  onClick={()=>setFilter("Pizza")}>Pizza</Button>
+      </Link>
+      <Link>
+        <Button variant="danger"  onClick={()=>setFilter("Sushi")}>Sushi</Button>
+      </Link>
     </div>
   );
 }
+export default CategoryFilter;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { registerUser } from "../api/auth";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function Register() {
@@ -22,7 +23,7 @@ function Register() {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:8000/api/register/", {
+      const response = await registerUser({
         name,
         email,
         password,
@@ -30,7 +31,7 @@ function Register() {
         address,
       });
 
-      if (response.data.success) {
+      if (response.data.token) {
         setSuccess("Registration successful! Redirecting to login...");
         setTimeout(() => {
           navigate("/login");
@@ -139,9 +140,9 @@ function Register() {
 
         <p className="text-center mt-3">
           Already have an account?{" "}
-          <a href="/login" className="text-danger">
+          <Link to="/login" className="text-danger">
             Login here
-          </a>
+          </Link>
         </p>
       </div>
     </div>

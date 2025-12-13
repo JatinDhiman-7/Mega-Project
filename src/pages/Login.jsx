@@ -1,13 +1,18 @@
-import React, { useState } from "react";
-import axios from "axios";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
+import { loginUser } from "../api/auth";
+import { AuthContext } from "../context/AuthContext";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const { login: loginContext } = useContext(AuthContext); // 🔑 AuthContext
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -16,17 +21,15 @@ function Login() {
     setError("");
 
     try {
-      // later this will be your Django backend endpoint
-      const response = await axios.post("http://localhost:8000/api/login/", {
-        email,
-        password,
-      });
+      const response = await loginUser({ email, password });
 
+      // Save token and update context
+      loginContext(response.data.token); // 🔑 updates Navbar automatically
+
+      // Navigate based on role
       if (response.data.role === "admin") {
-        localStorage.setItem("adminToken", response.data.token);
         navigate("/admin/dashboard");
       } else {
-        localStorage.setItem("userToken", response.data.token);
         navigate("/");
       }
     } catch (err) {
@@ -89,9 +92,9 @@ function Login() {
 
         <p className="text-center mt-3">
           Don’t have an account?{" "}
-          <a href="/register" className="text-danger">
+          <Link to="/register" className="text-danger">
             Register here
-          </a>
+          </Link>
         </p>
 
         <div className="text-center mt-3">

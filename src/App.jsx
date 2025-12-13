@@ -7,23 +7,33 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Orders from "./pages/Orders";
+import { useState } from "react";
+import Cart from "./pages/Cart";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    Boolean(localStorage.getItem("token"))
+  );
+
   return (
     <Router>
-      <Navbar />
+      <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
         {/* Home Page */}
         <Route path="/" element={<Home />} />
 
         {/* Login Page */}
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={<Login setIsLoggedIn={setIsLoggedIn} />}
+        />
 
         {/* Register Page */}
         <Route path="/register" element={<Register />} />
 
         {/* Orders Page */}
         <Route path="/orders" element={<Orders />} />
+        <Route path="/Cart" element={<Cart />} />
       </Routes>
       <Footer />
     </Router>
