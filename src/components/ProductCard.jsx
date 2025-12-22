@@ -9,7 +9,7 @@ function ProductCard() {
   const [filter, setFilter] = useState("all");
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/foodapp/food/")
+      .get("https://web-production-02919.up.railway.app/foodapp/food/")
       .then((res) => setFoods(res.data));
   }, []);
   const filteredItems =
@@ -17,12 +17,11 @@ function ProductCard() {
   return (
     <>
       <CategoryFilter setFilter={setFilter} />
-
       <div className="container">
         <div className="row">
           {filteredItems.map((food) => (
-            <div className="col-12 col-sm-6 col-md-4 mb-4">
-            <FoodCard key={food.id} food={food} />
+            <div key={food.id} className="col-12 col-sm-6 col-md-4 mb-4">
+              <FoodCard key={food.id} food={food} />
             </div>
           ))}
         </div>

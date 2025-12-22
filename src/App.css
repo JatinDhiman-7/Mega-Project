@@ -1,3 +1,9 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 /* Footer css */
 .container2 {
   display: flex;
@@ -5,6 +11,16 @@
   gap: 20px;
   text-align: left;
 }
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+
 .About-footer {
   width: 30%;
 }
@@ -112,4 +128,130 @@
   .img-box {
     height: 160px;
   }
+}
+
+/*Cart Navbar CSS*/
+.nav-btn{
+  text-decoration: none;
+  color: white;
+}
+
+
+
+  /* CART ORDer css */
+.cart_button_order:hover{
+  background-color:green;
+}
+.cart_button_remove:hover{
+  background-color:red;
+}
+
+
+
+/* Cart Componnet whole css */
+.cart-container {
+  width: 80%;
+  margin: 40px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 6px;
+  font-family: Arial, sans-serif;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cart-table th,
+.cart-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+.product {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.product img {
+  width: 60px;
+}
+
+input[type="number"] {
+  width: 60px;
+  padding: 5px;
+}
+
+.cart-total {
+  text-align: right;
+  margin-top: 15px;
+  font-size: 18px;
+}
+
+.cart-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.dark {
+  background: #333;
+  color: white;
+}
+
+.light {
+  background: #e0e0e0;
+}
+
+.danger {
+  background: #e74c3c;
+  color: white;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+.btn-cart-com{
+  text-decoration: none;
+  color: black;
+}
+
+/* to fix and footer stay on bottom */
+/* Make html and body full height */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* Flex column layout */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* full viewport height */
+}
+
+/* main content grows to push footer down */
+.main {
+  flex: 1;
+}
+
+/* Footer styling */
+.footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
 }

@@ -30,8 +30,7 @@ function Register() {
         phone,
         address,
       });
-
-      if (response.data.token) {
+      if (response.data.access) {
         setSuccess("Registration successful! Redirecting to login...");
         setTimeout(() => {
           navigate("/login");
@@ -48,7 +47,7 @@ function Register() {
   };
 
   return (
-    <div className="container d-flex align-items-center justify-content-center min-vh-100 bg-light">
+    <div className="container d-flex align-items-center justify-content-center min-vh-100 bg-light mt-3">
       <div
         className="register-container p-4 bg-white rounded-3 shadow"
         style={{ maxWidth: "500px", width: "100%" }}

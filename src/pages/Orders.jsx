@@ -9,8 +9,8 @@ function Orders() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const token = localStorage.getItem("userToken"); // JWT from login
-        const response = await axios.get("http://localhost:8000/api/orders/", {
+        const token = localStorage.getItem("access"); // JWT from login
+        const response = await axios.get("http://localhost:8000/foodapp/orders/", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setOrders(response.data);

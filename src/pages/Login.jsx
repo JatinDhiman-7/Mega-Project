@@ -12,28 +12,19 @@ function Login() {
   const [loading, setLoading] = useState(false);
 
   const { login: loginContext } = useContext(AuthContext); // 🔑 AuthContext
-
   const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
-
     try {
-      const response = await loginUser({ email, password });
-
+      const response = await loginUser({ username:email, password:password });
+console.log("login:",response)
       // Save token and update context
-      loginContext(response.data.token); // 🔑 updates Navbar automatically
-
-      // Navigate based on role
-      if (response.data.role === "admin") {
-        navigate("/admin/dashboard");
-      } else {
-        navigate("/");
-      }
+      loginContext(response.access); // 🔑 updates Navbar automatically
+      navigate("/")
     } catch (err) {
-      console.error(err);
+      console.error("LOGIN ERROR:",err);
       setError("Invalid email or password!");
     } finally {
       setLoading(false);
@@ -96,12 +87,6 @@ function Login() {
             Register here
           </Link>
         </p>
-
-        <div className="text-center mt-3">
-          <small className="text-muted">
-            Admin? Use admin@fooddelivery.com / admin123
-          </small>
-        </div>
       </div>
     </div>
   );

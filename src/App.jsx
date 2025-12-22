@@ -17,25 +17,29 @@ function App() {
 
   return (
     <Router>
-      <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-      <Routes>
-        {/* Home Page */}
-        <Route path="/" element={<Home />} />
+      <div className="app">
+        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <main className="main">
+          <Routes>
+            {/* Home Page */}
+            <Route path="/" element={<Home />} />
 
-        {/* Login Page */}
-        <Route
-          path="/login"
-          element={<Login setIsLoggedIn={setIsLoggedIn} />}
-        />
+            {/* Login Page */}
+            <Route
+              path="/login"
+              element={<Login setIsLoggedIn={setIsLoggedIn} />}
+            />
 
-        {/* Register Page */}
-        <Route path="/register" element={<Register />} />
+            {/* Register Page */}
+            <Route path="/register" element={<Register />} />
 
-        {/* Orders Page */}
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/Cart" element={<Cart />} />
-      </Routes>
-      <Footer />
+            {/* Orders Page */}
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/Cart" element={<Cart />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </Router>
   );
 }

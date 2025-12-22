@@ -1,13 +1,19 @@
 // src/context/AuthContext.js
-import { createContext, useState } from "react";
-
+import { useEffect,createContext, useState } from "react";
 export const AuthContext = createContext();
-
 export function AuthProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(
-    Boolean(localStorage.getItem("userToken"))
+    Boolean(localStorage.getItem("access"))
   );
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    return JSON.parse(localStorage.getItem('cart')) || []
+  });
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart))
+  }, [cart]);
+
+  console.log(cart)
   const addToCart = (item) => {
     setCart((prev) => {
       const exists = prev.find((p) => p.id === item.id);
@@ -25,19 +31,21 @@ export function AuthProvider({ children }) {
     setCart((prev) => prev.filter((item) => item.id !== id));
   };
 
-  const updateQty = (id, qty) => {
-    setCart((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, qty: qty } : item))
+  const updateQty = (id, value) => {
+    const qty = Math.max(1, Number(value));
+    setCart(prevcart => prevcart.map(item => item.id === id ? { ...item, quantity: qty } : item)
     );
   };
 
-  const login = (token) => {
-    localStorage.setItem("userToken", token);
+  const login = (access) => {
+    console.log(access)
+    localStorage.setItem("access",access);
     setIsLoggedIn(true);
   };
 
   const logout = () => {
-    localStorage.removeItem("userToken");
+    localStorage.removeItem("access");
+    localStorage.removeItem("refresh");
     setIsLoggedIn(false);
   };
 
@@ -48,6 +56,7 @@ export function AuthProvider({ children }) {
         login,
         logout,
         cart,
+        setCart,
         addToCart,
         removeFromCart,
         updateQty,

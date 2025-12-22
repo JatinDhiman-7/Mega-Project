@@ -1,38 +1,37 @@
 import axios from "axios";
 
-const API = "http://127.0.0.1:8000/foodapp/";
+const API = "https://web-production-02919.up.railway.app/foodapp/";
 
-export const registerUser = (data) =>
-    axios.post(API + "register/", data);
+// Register
+export const registerUser = (data) => axios.post(API + "register/", data);
 
+// Login
 export const loginUser = async (data) => {
-    const response = await axios.post(API + "login/", data);
-    const token = response.data.token;
-
-    localStorage.setItem("token", token);
-
-    return response;
+  const response = await axios.post(API + "login/", data);
+  // Save JWT tokens
+  console.log(data)
+  localStorage.setItem("access", response.data.access);
+  localStorage.setItem("refresh", response.data.refresh);
+  return response.data;
 };
 
-export const logoutUser = () => {
-    const token = localStorage.getItem("token");
-
-    return axios.post(
-        API + "logout/",
-        {},
-        {
-            headers: {
-                Authorization: `Token ${token}`,
-            },
-        }
-    ).then(() => {
-        localStorage.removeItem("token");
-    });
+// Logout
+export const logoutUser = async () => {
+  const refresh = localStorage.getItem("refresh");
+  if (refresh) {
+    await axios.post(API + "logout/", { refresh });
+  }
+  localStorage.clear();
 };
 
+// Auth header
 export const authHeader = () => {
-    const token = localStorage.getItem("token");
-    return {
-        headers: { Authorization: `Token ${token}` }
-    };
+  const access = localStorage.getItem("access");
+  return { Authorization: `Bearer ${access}` };
+};
+
+// Cart details
+export const getCart = async () => {
+  const res = await axios.get(API + "cart/", { headers: authHeader() });
+  return res.data;
 };

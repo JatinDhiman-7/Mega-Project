@@ -1,36 +1,32 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-const FoodCard = React.memo(({ food }) => {
-  const { addToCart } = useContext(AuthContext);
+const FoodCard = ({ food }) => {
+  const { addToCart, isLoggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const goToLogin = () => navigate("/login");
 
   return (
     <Card className="food-card h-100">
       <div className="img-box">
-        <img
-          src={`http://127.0.0.1:8000${food.image}`}
-          alt={food.name}
-          loading="lazy"
-          className="food-img"
-        />
+        <img src={`https://web-production-02919.up.railway.app/${food.image}`} alt={food.name} className="food-img" />
       </div>
-
       <Card.Body>
-        <Card.Title className="price">{food.name}</Card.Title>
-        <Card.Title className="price">₹{food.price}</Card.Title>
-        <Card.Text className="desc">{food.description}</Card.Text>
-        <Button
-          className="add-btn"
-          variant="success"
-          onClick={() => addToCart(food)}
-        >
-          Add to Cart
-        </Button>
+        <Card.Title>{food.name}</Card.Title>
+        <Card.Title>₹{food.price}</Card.Title>
+        <Card.Text>{food.description}</Card.Text>
+        {isLoggedIn ? (
+          <Button variant="success" onClick={() => addToCart(food)}>Add to Cart</Button>
+        ) : (
+          <Button variant="danger" onClick={goToLogin}>Login to Order</Button>
+        )}
       </Card.Body>
     </Card>
   );
-});
+};
 
 export default FoodCard;
