@@ -13,7 +13,7 @@ const FoodCard = ({ food }) => {
   return (
     <Card className="food-card h-100">
       <div className="img-box">
-        <img src={`https://web-production-02919.up.railway.app/${food.image}`} alt={food.name} className="food-img" />
+        <img src={`https://web-production-02919.up.railway.app${food.image}`} alt={food.name} className="food-img" />
       </div>
       <Card.Body>
         <Card.Title>{food.name}</Card.Title>
