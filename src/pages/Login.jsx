@@ -19,7 +19,7 @@ function Login() {
     setError("");
     try {
       const response = await loginUser({ username:email, password:password });
-console.log("login:",response)
+// console.log("login:",response)
       // Save token and update context
       loginContext(response.access); // 🔑 updates Navbar automatically
       navigate("/")

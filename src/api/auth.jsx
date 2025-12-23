@@ -9,7 +9,7 @@ export const registerUser = (data) => axios.post(API + "register/", data);
 export const loginUser = async (data) => {
   const response = await axios.post(API + "login/", data);
   // Save JWT tokens
-  console.log(data)
+  // console.log(data)
   localStorage.setItem("access", response.data.access);
   localStorage.setItem("refresh", response.data.refresh);
   return response.data;

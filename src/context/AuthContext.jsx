@@ -14,7 +14,6 @@ export function AuthProvider({ children }) {
     localStorage.setItem('cart', JSON.stringify(cart))
   }, [cart]);
 
-  console.log(cart)
   const addToCart = (item) => {
     toast.success("Item added successfully 🎉");
     setCart((prev) => {
@@ -40,7 +39,7 @@ export function AuthProvider({ children }) {
   };
 
   const login = (access) => {
-    console.log(access)
+    // console.log(access)
     localStorage.setItem("access", access);
     setIsLoggedIn(true);
   };
