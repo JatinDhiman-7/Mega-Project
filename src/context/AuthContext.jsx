@@ -1,5 +1,6 @@
 // src/context/AuthContext.js
-import { useEffect,createContext, useState } from "react";
+import { useEffect, createContext, useState } from "react";
+import { toast } from "react-toastify";
 export const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -15,14 +16,15 @@ export function AuthProvider({ children }) {
 
   console.log(cart)
   const addToCart = (item) => {
+    toast.success("Item added successfully 🎉");
     setCart((prev) => {
       const exists = prev.find((p) => p.id === item.id);
-
       if (exists) {
         return prev.map((p) =>
           p.id === item.id ? { ...p, qty: p.qty + 1 } : p
         );
       } else {
+        // toast.success("Item added successfully 🎉");
         return [...prev, { ...item, qty: 1 }];
       }
     });
@@ -39,7 +41,7 @@ export function AuthProvider({ children }) {
 
   const login = (access) => {
     console.log(access)
-    localStorage.setItem("access",access);
+    localStorage.setItem("access", access);
     setIsLoggedIn(true);
   };
 

@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import "./App.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // pages
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -29,7 +31,7 @@ function App() {
               path="/login"
               element={<Login setIsLoggedIn={setIsLoggedIn} />}
             />
-
+ 
             {/* Register Page */}
             <Route path="/register" element={<Register />} />
 
@@ -37,6 +39,7 @@ function App() {
             <Route path="/orders" element={<Orders />} />
             <Route path="/Cart" element={<Cart />} />
           </Routes>
+          <ToastContainer position="top-right" autoClose={2000} />
         </main>
         <Footer />
       </div>
