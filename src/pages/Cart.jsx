@@ -25,7 +25,7 @@ function Cart() {
           {cart.map(item => (
             <tr>
               <td className="product">
-                <img src={`http://127.0.0.1:8000${item.image}`} alt={item.name} />
+                <img src={`https://web-production-02919.up.railway.app${item.image}`} alt={item.name} />
                 <span>{item.name}</span>
               </td>
 

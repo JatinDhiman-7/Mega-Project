@@ -10,7 +10,7 @@ function Orders() {
     const fetchOrders = async () => {
       try {
         const token = localStorage.getItem("access"); // JWT from login
-        const response = await axios.get("http://localhost:8000/foodapp/orders/", {
+        const response = await axios.get("https://web-production-02919.up.railway.app/foodapp/orders/", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setOrders(response.data);

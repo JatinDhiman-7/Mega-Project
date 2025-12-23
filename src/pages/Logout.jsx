@@ -3,13 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 function LogoutButton() {
-  const { logout } = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout(); // updates Navbar automatically
-    navigate("/login");
-  };
+  
 
   return (
     <button className="btn btn-danger" onClick={handleLogout}>
