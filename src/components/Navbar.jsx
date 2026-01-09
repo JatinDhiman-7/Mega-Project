@@ -4,7 +4,6 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useNavigate, Link } from "react-router-dom";
-import { logoutUser } from "../api/auth";
 function NavbarComponent() {
   const { isLoggedIn } = useContext(AuthContext);
   const { logout } = useContext(AuthContext);

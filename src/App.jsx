@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Orders from "./pages/Orders";
 import Cart from "./pages/Cart";
+import Profile from "./pages/Profile";
 import { useState, useCallback } from "react";
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/Profile" element={<Profile />} />
           </Routes>
         </main>
 
