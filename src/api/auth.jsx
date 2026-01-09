@@ -10,6 +10,7 @@ export const loginUser = async (data) => {
   const response = await axios.post(API + "login/", data);
   // Save JWT tokens
   // console.log(data)
+  console.log(response)
   localStorage.setItem("access", response.data.access);
   localStorage.setItem("refresh", response.data.refresh);
   return response.data;
@@ -17,11 +18,18 @@ export const loginUser = async (data) => {
 
 // Logout
 export const logoutUser = async () => {
-  const refresh = localStorage.getItem("refresh");
-  if (refresh) {
-    await axios.post(API + "logout/", { refresh });
+  try {
+    await axios.post(API + 'logout/',
+      { refresh: localStorage.getItem("refresh") },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access")}`,
+        },
+      }
+    )
+  } catch (err) {
+    console.error("Logout failed:", err.response?.data || err.message);
   }
-  localStorage.clear();
 };
 
 // Auth header

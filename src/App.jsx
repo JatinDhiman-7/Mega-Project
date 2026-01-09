@@ -4,44 +4,40 @@ import Footer from "./components/Footer";
 import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 // pages
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Orders from "./pages/Orders";
-import { useState } from "react";
 import Cart from "./pages/Cart";
+import { useState, useCallback } from "react";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
     Boolean(localStorage.getItem("token"))
   );
 
+  // Memoize Navbar props to prevent unnecessary re-render
+  const memoSetIsLoggedIn = useCallback((val) => setIsLoggedIn(val), []);
+
   return (
     <Router>
       <div className="app">
-        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={memoSetIsLoggedIn} />
+
         <main className="main">
           <Routes>
-            {/* Home Page */}
             <Route path="/" element={<Home />} />
-
-            {/* Login Page */}
-            <Route
-              path="/login"
-              element={<Login setIsLoggedIn={setIsLoggedIn} />}
-            />
- 
-            {/* Register Page */}
+            <Route path="/login" element={<Login setIsLoggedIn={memoSetIsLoggedIn} />} />
             <Route path="/register" element={<Register />} />
-
-            {/* Orders Page */}
             <Route path="/orders" element={<Orders />} />
-            <Route path="/Cart" element={<Cart />} />
+            <Route path="/cart" element={<Cart />} />
           </Routes>
-          <ToastContainer position="top-right" autoClose={2000} />
         </main>
+
         <Footer />
+        <ToastContainer position="top-right" autoClose={2000} />
       </div>
     </Router>
   );

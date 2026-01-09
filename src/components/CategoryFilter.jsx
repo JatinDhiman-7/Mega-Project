@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { useState, useEffect } from "react";
-import FoodCard from "./FoodCard";
 
 function CategoryFilter({ setFilter }) {
   return (

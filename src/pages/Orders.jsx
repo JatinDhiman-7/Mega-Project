@@ -8,10 +8,11 @@ function Orders() {
 
   useEffect(() => {
     const fetchOrders = async () => {
+      const accessToken = localStorage.getItem("access"); 
+      console.log(accessToken)
       try {
-        const token = localStorage.getItem("access"); // JWT from login
-        const response = await axios.get("https://web-production-02919.up.railway.app/foodapp/orders/", {
-          headers: { Authorization: `Bearer ${token}` },
+        const response = await axios("https://web-production-02919.up.railway.app/foodapp/orders/",{
+          headers: { Authorization: `Bearer ${accessToken}` },
         });
         setOrders(response.data);
       } catch (err) {

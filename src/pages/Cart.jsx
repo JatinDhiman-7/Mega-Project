@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 function Cart() {
-  const { cart, removeFromCart, updateQty } = useContext(AuthContext);
+  const { cart, removeFromCart, updateQty } = useContext(CartContext);
   const navigate = useNavigate();
 
   //  console.log("cart",typeof(cart[0].price))
@@ -29,9 +29,9 @@ function Cart() {
 
         <tbody>
           {cart.map(item => (
-            <tr>
+            <tr key={item.id}>
               <td className="product">
-                <img src={`https://web-production-02919.up.railway.app${item.image}`} alt={item.name} />
+                <img src={item.image} alt={item.name} />
                 <span>{item.name}</span>
               </td>
 
@@ -40,14 +40,12 @@ function Cart() {
               <td>
                 <input
                   type="number"
-                  defaultValue={1}
-                  min={1}
                   value={item.quantity || 1}
                   onChange={e => updateQty(item.id, Number(e.target.value))}
                 />
               </td>
 
-              <td>₹{Number(item.price)* Number(item.quantity||1).toFixed(2)}</td>
+              <td>₹{Number(item.price) * Number(item.quantity || 1).toFixed(2)}</td>
 
               <td>
                 <button className="delete-btn" onClick={() => removeFromCart(item.id)}>

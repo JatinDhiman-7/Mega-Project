@@ -1,43 +1,13 @@
 // src/context/AuthContext.js
-import { useEffect, createContext, useState } from "react";
+import { useEffect, createContext, useState, useMemo } from "react";
 import { toast } from "react-toastify";
+import { logoutUser } from "../api/auth";
+import { useNavigate } from "react-router-dom";
 export const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(
     Boolean(localStorage.getItem("access"))
   );
-  const [cart, setCart] = useState(() => {
-    return JSON.parse(localStorage.getItem('cart')) || []
-  });
-
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart))
-  }, [cart]);
-
-  const addToCart = (item) => {
-    toast.success("Item added successfully 🎉");
-    setCart((prev) => {
-      const exists = prev.find((p) => p.id === item.id);
-      if (exists) {
-        return prev.map((p) =>
-          p.id === item.id ? { ...p, qty: p.qty + 1 } : p
-        );
-      } else {
-        // toast.success("Item added successfully 🎉");
-        return [...prev, { ...item, qty: 1 }];
-      }
-    });
-  };
-  const removeFromCart = (id) => {
-    setCart((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  const updateQty = (id, value) => {
-    const qty = Math.max(1, Number(value));
-    setCart(prevcart => prevcart.map(item => item.id === id ? { ...item, quantity: qty } : item)
-    );
-  };
-
   const login = (access) => {
     // console.log(access)
     localStorage.setItem("access", access);
@@ -45,24 +15,18 @@ export function AuthProvider({ children }) {
   };
 
   const logout = () => {
+    logoutUser()
     localStorage.removeItem("access");
     localStorage.removeItem("refresh");
     setIsLoggedIn(false);
   };
-
+  const value = useMemo(() => ({
+    isLoggedIn,
+    login,
+    logout,
+  }), [isLoggedIn]);
   return (
-    <AuthContext.Provider
-      value={{
-        isLoggedIn,
-        login,
-        logout,
-        cart,
-        setCart,
-        addToCart,
-        removeFromCart,
-        updateQty,
-      }}
-    >
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,37 +1,53 @@
-*{
+/* Reset */
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Footer css */
-.container2 {
+/* GLOBAL HTML/BODY */
+html, body {
+  min-height: 100%;
+  overflow-x: hidden;
+  font-family: Arial, sans-serif;
+}
+
+/* APP LAYOUT */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* full viewport height */
+}
+
+.main {
+  flex: 1; /* main content grows to push footer down */
+}
+
+/* FOOTER */
+.footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+}
+.container2{
   display: flex;
   justify-content: space-between;
-  gap: 20px;
+  gap:40px;
   text-align: left;
 }
-
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24
-}
-
-
-.About-footer {
+.About-footer{
   width: 30%;
 }
-.Links-footer {
+.Links-footer{
+  margin-left: 80px;
   width: 30%;
 }
-.Address-footer {
-  width: 30%;
+.Address-footer{
+  width:30%;
 }
 
-/* CategorCss */
+/* CATEGORY BUTTONS */
 .CategorCss {
   display: flex;
   gap: 10px;
@@ -54,8 +70,7 @@
   background: #c0392b;
 }
 
-/* Product-CSS */
-/* GRID WRAPPER */
+/* FOOD GRID */
 .food-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -63,21 +78,20 @@
   padding: 20px;
 }
 
-/* CARD STYLE */
+/* FOOD CARD */
 .food-card {
   border: none !important;
   border-radius: 16px;
   overflow: hidden;
   background: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.09);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.09);
   transition: 0.3s ease;
 }
 
-/* PC Hover */
 @media (hover: hover) {
   .food-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.18);
   }
 
   .food-card:hover img {
@@ -96,6 +110,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
   transition: 0.4s ease;
 }
 
@@ -120,42 +135,13 @@
   font-weight: 600;
 }
 
-/* Mobile */
-@media (max-width: 480px) {
-  .food-grid {
-    grid-template-columns: 1fr;
-  }
-  .img-box {
-    height: 160px;
-  }
-}
-
-/*Cart Navbar CSS*/
-.nav-btn{
-  text-decoration: none;
-  color: white;
-}
-
-
-
-  /* CART ORDer css */
-.cart_button_order:hover{
-  background-color:green;
-}
-.cart_button_remove:hover{
-  background-color:red;
-}
-
-
-
-/* Cart Componnet whole css */
+/* CART */
 .cart-container {
   width: 80%;
   margin: 40px auto;
   background: white;
   padding: 20px;
   border-radius: 6px;
-  font-family: Arial, sans-serif;
 }
 
 .cart-table {
@@ -163,8 +149,7 @@
   border-collapse: collapse;
 }
 
-.cart-table th,
-.cart-table td {
+.cart-table th, .cart-table td {
   padding: 12px;
   border-bottom: 1px solid #ddd;
   text-align: center;
@@ -218,116 +203,24 @@ input[type="number"] {
   color: white;
 }
 
-.delete-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 18px;
-}
-.btn-cart-com{
-  text-decoration: none;
-  color: black;
-}
-
-/* to fix and footer stay on bottom */
-/* Make html and body full height */
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
-/* Flex column layout */
-.app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* full viewport height */
-}
-
-/* main content grows to push footer down */
-.main {
-  flex: 1;
-}
-
-/* Footer styling */
-.footer {
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  padding: 1rem;
-}
-
+/* RESPONSIVE */
 @media (max-width: 768px) {
-
-  /* remove horizontal scroll */
-  body {
-    overflow-x: hidden;
-  }
-
-  .cart-container {
-    width: 100%;
-    margin: 10px 0;
-    padding: 12px;
-  }
-
-  .cart-table thead {
-    display: none;
-  }
-
-  .cart-table,
-  .cart-table tbody,
-  .cart-table tr,
-  .cart-table td {
-    display: block;
-    width: 100%;
-  }
-
-  .cart-table tr {
-    margin-bottom: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 10px;
-  }
-
-  .cart-table td {
-    padding: 6px 0;
-    text-align: left;   /* 🔥 IMPORTANT */
-  }
-
-  /* label styling */
-  .cart-table td::before {
-    content: attr(data-label);
-    display: block;
-    font-weight: 600;
-    margin-bottom: 4px;
-    color: #555;
-    position: static;   /* 🔥 FIX LEFT SPACE */
-  }
-
-  .product {
-    gap: 8px;
-  }
-
-  .product img {
-    width: 48px;
-  }
-
-  input[type="number"] {
-    width: 55px;
-  }
-
-  .cart-total {
-    text-align: center;
-    font-size: 18px;
-  }
-
-  .cart-buttons {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .btn {
-    width: 100%;
-  }
+  .cart-container { width: 100%; margin: 10px 0; padding: 12px; }
+  .cart-table thead { display: none; }
+  .cart-table, .cart-table tbody, .cart-table tr, .cart-table td { display: block; width: 100%; }
+  .cart-table tr { margin-bottom: 12px; border: 1px solid #ddd; border-radius: 6px; padding: 10px; }
+  .cart-table td { padding: 6px 0; text-align: left; }
+  .cart-table td::before { content: attr(data-label); display: block; font-weight: 600; margin-bottom: 4px; color: #555; position: static; }
+  .product { gap: 8px; }
+  .product img { width: 48px; }
+  input[type="number"] { width: 55px; }
+  .cart-total { text-align: center; font-size: 18px; }
+  .cart-buttons { flex-direction: column; gap: 10px; }
+  .btn { width: 100%; }
 }
 
-  /* de*
+/* MOBILE FOOD GRID */
+@media (max-width: 480px) {
+  .food-grid { grid-template-columns: 1fr; }
+  .img-box { height: 160px; }
+}
