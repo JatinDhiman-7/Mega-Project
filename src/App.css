@@ -80,12 +80,19 @@ html, body {
 
 /* FOOD CARD */
 .food-card {
+  will-change:transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  contain: content;
   border: none !important;
   border-radius: 16px;
   overflow: hidden;
   background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.09);
   transition: 0.3s ease;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 350px;
+  perspective: 1px;
 }
 
 @media (hover: hover) {
@@ -203,6 +210,22 @@ input[type="number"] {
   color: white;
 }
 
+
+/* Profile css */
+.profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 100px auto; /* centers horizontally */
+  /* border: 2px solid black; */
+  height: 200px;
+  width: 300px;
+}
+.profileImg{
+  width: 200px;
+  border-radius: 50px;
+}
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .cart-container { width: 100%; margin: 10px 0; padding: 12px; }
