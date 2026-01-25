@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = "https://web-production-02919.up.railway.app/foodapp/";
+const API = "https://foodapp-backend-z4ba.onrender.com/foodapp/";
 
 //profile
 export const profiledata = async () => {

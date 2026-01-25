@@ -1,6 +1,6 @@
 // const  BASE_URL='http://127.0.0.1:8000/api/foods/'
 import axios from "axios";
-import { useState, useEffect,useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import FoodCard from "./FoodCard";
 import CategoryFilter from "./CategoryFilter";
 
@@ -9,7 +9,7 @@ function ProductCard() {
   const [filter, setFilter] = useState("all");
   useEffect(() => {
     axios
-      .get("https://web-production-02919.up.railway.app/foodapp/food/")
+      .get("https://foodapp-backend-z4ba.onrender.com/foodapp/food/")
       .then((res) => setFoods(res.data));
   }, []);
   const filteredItems = useMemo(() => { return filter === "all" ? foods : foods.filter((item) => item.category === filter) }, [foods, filter])
