@@ -9,7 +9,6 @@ function Orders() {
   useEffect(() => {
     const fetchOrders = async () => {
       const accessToken = localStorage.getItem("access"); 
-      console.log(accessToken)
       try {
         const response = await axios("https://web-production-02919.up.railway.app/foodapp/orders/",{
           headers: { Authorization: `Bearer ${accessToken}` },
