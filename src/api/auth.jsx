@@ -1,15 +1,10 @@
 import axios from "axios";
-
-const API = "https://foodapp-backend-z4ba.onrender.com/foodapp/";
-
+import api from "./api";
+const API="https://foodapp-backend-z4ba.onrender.com/foodapp/"
 //profile
 export const profiledata = async () => {
   try {
-    const res = await axios.get(API + "profiles/", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("access")}`,
-      },
-    });
+    const res = await api.get("profiles/");
     return res.data;
   } catch (error) {
     console.error(error.response?.data);
@@ -18,11 +13,11 @@ export const profiledata = async () => {
 };
 
 // Register
-export const registerUser = (data) => axios.post(API + "register/", data);
+export const registerUser = (data) => api.post("register/", data);
 
 // Login
 export const loginUser = async (data) => {
-  const response = await axios.post(API + "login/", data);
+  const response = await api.post("login/", data);
   console.log(response)
   localStorage.setItem("access", response.data.access);
   localStorage.setItem("refresh", response.data.refresh);
@@ -54,6 +49,6 @@ export const authHeader = () => {
 
 // Cart details
 export const getCart = async () => {
-  const res = await axios.get(API + "cart/", { headers: authHeader() });
+  const res = await api.get(+ "cart/", { headers: authHeader() });
   return res.data;
 };

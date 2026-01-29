@@ -2,42 +2,53 @@ import axios from "axios";
 
 // 1️⃣ Create Axios instance
 const api = axios.create({
-  baseURL: "https://foodapp-backend-z4ba.onrender.com/",
+  baseURL: "https://foodapp-backend-z4ba.onrender.com/foodapp/",
 });
 
-// 2️⃣ Response interceptor
+// 2️⃣ Request interceptor to attach access token
+api.interceptors.request.use(
+  (config) => {
+    const access = localStorage.getItem("access");
+    if (access) {
+      config.headers.Authorization = `Bearer ${access}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+// 3️⃣ Response interceptor for token refresh
 api.interceptors.response.use(
-  response => response, // If success, just return response
-  async error => {
-    // Check if error is 401
-    if (error.response && error.response.status === 401) {
-      console.log("Access token expired or invalid");
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
 
-      // Optional: try refresh token here
-      const refresh = localStorage.getItem("refresh");
-      if (refresh) {
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      const refreshToken = localStorage.getItem("refresh");
+      if (refreshToken) {
         try {
-          const res = await axios.post("/api/token/refresh/", { refresh });
-          localStorage.setItem("access", res.data.access);
+          const res = await api.post("/token/refresh/", { refresh: refreshToken });
 
-          // Retry original request with new token
-          error.config.headers["Authorization"] = `Bearer ${res.data.access}`;
-          return axios(error.config);
+          // Save new access token
+          const newAccessToken = res.data.access;
+          localStorage.setItem("access", newAccessToken);
+
+          // Update Authorization header and retry original request
+          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+          return api(originalRequest);
         } catch (refreshError) {
-          console.log("Refresh token failed, redirect to login");
-          // Redirect to login or clear localStorage
-          localStorage.removeItem("access");
-          localStorage.removeItem("refresh");
-          window.location.href = "/login";
-          return Promise.reject(refreshError);
+          console.error("Refresh token failed, redirecting to login", refreshError);
         }
-      } else {
-        console.log("No refresh token, redirect to login");
-        window.location.href = "/login";
       }
+      // Clear tokens and redirect to login if refresh fails or missing
+      localStorage.removeItem("access");
+      localStorage.removeItem("refresh");
+      window.location.href = "/login";
     }
 
-    return Promise.reject(error); // Other errors
+    return Promise.reject(error);
   }
 );
 

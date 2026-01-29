@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import api from "../api/api";
 
 function Orders() {
   const [orders, setOrders] = useState([]);
@@ -10,9 +10,7 @@ function Orders() {
     const fetchOrders = async () => {
       const accessToken = localStorage.getItem("access"); 
       try {
-        const response = await axios("https://foodapp-backend-z4ba.onrender.com/foodapp/orders/",{
-          headers: { Authorization: `Bearer ${accessToken}` },
-        });
+        const response = await api.get("orders/");
         setOrders(response.data);
       } catch (err) {
         console.error(err);
