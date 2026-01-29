@@ -10,7 +10,7 @@ function Orders() {
     const fetchOrders = async () => {
       const accessToken = localStorage.getItem("access"); 
       try {
-        const response = await axios("https://web-production-02919.up.railway.app/foodapp/orders/",{
+        const response = await axios("https://foodapp-backend-z4ba.onrender.com/foodapp/orders/",{
           headers: { Authorization: `Bearer ${accessToken}` },
         });
         setOrders(response.data);
